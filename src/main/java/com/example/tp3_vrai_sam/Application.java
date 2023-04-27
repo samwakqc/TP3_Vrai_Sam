@@ -23,44 +23,20 @@ public class Application extends javafx.application.Application
     @Override
     public void start(Stage primaryStage) throws IOException
     {
-        Circle balle = new Circle(10, Color.CADETBLUE);
-        balle.relocate(5,5);
-
-        Circle balle2 = new Circle(10, Color.YELLOW);
-        balle2.relocate(100,350);
-
-        Text score = new Text();
-        score.setText("Score : " + scoreJeu);
-        score.setY(10);
-        score.setX(10);
-
         // Creer un pane racine
         Pane root = new Pane();
         Scene scene = new Scene(root, 800, 600);
 
-        ObservableList list = root.getChildren();
-        list.add(balle);
-        list.add(balle2);
-        list.add(score);
-
-        Controller.timeline(root,balle);
-        Controller.timeline2(root,balle2);
+        Controller.start(root, scene);
 
         primaryStage.setTitle("Clickball");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Lorsqu'on clique sur la balle
-        balle.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                scoreJeu = scoreJeu + 1;
-                score.setText("Score : " + scoreJeu);
+        Controller.timeline(root);
+        Controller.timeline2(root);
 
-            }
-        });
+
 
 
     }
