@@ -35,10 +35,6 @@ public class Application extends javafx.application.Application
 
         Controller.timeline(root);
         Controller.timeline2(root);
-
-
-
-
     }
     public static void main(String[] args) {
         launch();
