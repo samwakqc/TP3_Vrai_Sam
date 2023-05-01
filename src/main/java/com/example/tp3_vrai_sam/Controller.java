@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,29 +22,38 @@ import java.io.File;
 
 public class Controller
 {
-    static Circle balle = new Circle(10, Color.CADETBLUE);
-    static Circle balle2 = new Circle(10, Color.YELLOW);
+    static Circle balle = new Circle(25, Color.CADETBLUE);
+    static Circle balle2 = new Circle(25, Color.YELLOW);
     static int scoreJeu = 0;
 
-    static Media ding = new Media(new File("src/sounds/ding.mp3").toURI().toString());
+    static Media ding = new Media(new File("src/ressources/sounds/ding.mp3").toURI().toString());
     static MediaPlayer mediaPlayerDing = new MediaPlayer(ding);
 
-    static Media bounce = new Media(new File("src/sounds/bounce.mp3").toURI().toString());
+    static Media bounce = new Media(new File("src/ressources/sounds/bounce.mp3").toURI().toString());
     static MediaPlayer mediaPlayerBounce = new MediaPlayer(bounce);
+
+    static Image fire = new Image(new File("src/ressources/image/giphy.gif").toURI().toString());
+    static ImageView fireView = new ImageView(fire);
+
+    static Image streaks = new Image(new File("src/ressources/image/well.gif").toURI().toString());
+    static ImageView streakView = new ImageView(streaks);
     public static void start(Pane root, Scene scene)
     {
+        setupImages();
         balle.relocate(5,5);
         balle2.relocate(100,350);
 
         Text score = new Text();
         score.setText("Score : " + scoreJeu);
-        score.setY(10);
-        score.setX(10);
+        score.setY(20);
+        score.setX(15);
 
         ObservableList list = root.getChildren();
         list.add(balle);
         list.add(balle2);
         list.add(score);
+        list.add(fireView);
+        list.add(streakView);
 
         // Lorsqu'on clique sur la balle
         balle.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -54,6 +65,16 @@ public class Controller
                 scoreJeu = scoreJeu + 1;
                 score.setText("Score : " + scoreJeu);
                 mediaPlayerDing.play();
+
+                if(scoreJeu == 5)
+                {
+                    fireView.setVisible(true);
+                }
+
+                if(scoreJeu == 15)
+                {
+                    streakView.setVisible(true);
+                }
             }
 
         });
@@ -124,5 +145,24 @@ public class Controller
 
         timeline2.setCycleCount(Timeline.INDEFINITE);
         timeline2.play();
+    }
+
+    static public void setupImages()
+    {
+        fireView.setVisible(false);
+        streakView.setVisible(false);
+        fireView.setX(70);
+        fireView.setY(1);
+
+        streakView.setX(100);
+        streakView.setY(3);
+
+        // Fait en sorte de diminuer la dimension du gif feu
+        fireView.setFitWidth(fire.getWidth() * 0.05);
+        fireView.setFitHeight(fire.getHeight() * 0.05);
+
+        // Fait en sorte de diminuer la dimension du gif 100
+        streakView.setFitWidth(streaks.getWidth() * 0.1);
+        streakView.setFitHeight(streaks.getHeight() * 0.1);
     }
 }
