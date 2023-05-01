@@ -32,6 +32,8 @@ public class Controller
     static Media bounce = new Media(new File("src/ressources/sounds/bounce.mp3").toURI().toString());
     static MediaPlayer mediaPlayerBounce = new MediaPlayer(bounce);
 
+    static MediaPlayer mediaPlayerBounce2 = new MediaPlayer(bounce);
+
     static Image fire = new Image(new File("src/ressources/image/giphy.gif").toURI().toString());
     static ImageView fireView = new ImageView(fire);
 
@@ -76,7 +78,28 @@ public class Controller
                     streakView.setVisible(true);
                 }
             }
+        });
 
+        balle2.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                mediaPlayerDing.stop();
+                scoreJeu = scoreJeu + 1;
+                score.setText("Score : " + scoreJeu);
+                mediaPlayerDing.play();
+
+                if(scoreJeu == 5)
+                {
+                    fireView.setVisible(true);
+                }
+
+                if(scoreJeu == 15)
+                {
+                    streakView.setVisible(true);
+                }
+            }
         });
     }
     public static void timeline(Pane root)
@@ -133,18 +156,24 @@ public class Controller
                 if((balle2.getLayoutX() <= (bounds.getMinX() + balle2.getRadius()) || (balle2.getLayoutX() >= (bounds.getMaxX() - balle2.getRadius()))))
                 {
                     dx2 = -dx2;
+                    mediaPlayerBounce2.stop();
+                    mediaPlayerBounce2.play();
                 }
 
                 // Si la balle atteint le maximum en haut ou en bas de la bordure, la donnée du Y devient négative
                 if((balle2.getLayoutY() >= (bounds.getMaxY() - balle2.getRadius()) || (balle2.getLayoutY() <= (bounds.getMinY() + balle2.getRadius()))))
                 {
                     dy2 = -dy2;
+                    mediaPlayerBounce2.stop();
+                    mediaPlayerBounce2.play();
                 }
             }
         }));
 
         timeline2.setCycleCount(Timeline.INDEFINITE);
         timeline2.play();
+
+
     }
 
     static public void setupImages()
