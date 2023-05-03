@@ -17,6 +17,12 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+
+/**
+ *
+ *  Application qui va permettre au jeu de fonctionner et d'afficher les composants dans le root
+ *
+ */
 public class Application extends javafx.application.Application
 {
     static int scoreJeu = 0;
@@ -27,9 +33,9 @@ public class Application extends javafx.application.Application
         Pane root = new Pane();
         Scene scene = new Scene(root, 800, 600);
 
-        Controller.start(root, scene);
+        Controller.start(root);
 
-        primaryStage.setTitle("Clickball");
+        primaryStage.setTitle("CLICK THE BALL");
         primaryStage.setScene(scene);
         primaryStage.show();
 

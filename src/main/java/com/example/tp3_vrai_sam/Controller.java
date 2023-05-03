@@ -20,6 +20,10 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
+/**
+ *
+ * Classe qui cache toutes les fonctions derrière le jeu
+ */
 public class Controller
 {
     static Circle balle = new Circle(25, Color.CADETBLUE);
@@ -39,7 +43,15 @@ public class Controller
 
     static Image streaks = new Image(new File("src/ressources/image/well.gif").toURI().toString());
     static ImageView streakView = new ImageView(streaks);
-    public static void start(Pane root, Scene scene)
+
+
+    /**
+     *
+     * Fonction start qui est utilisé unpeu comme une fonction main
+     * @param root Permet au controlleur d'avoir accès au Pane et d'y ajouter les enfants qu'il désire
+     *
+     */
+    public static void start(Pane root)
     {
         setupImages();
         balle.relocate(5,5);
@@ -57,10 +69,19 @@ public class Controller
         list.add(fireView);
         list.add(streakView);
 
-        // Lorsqu'on clique sur la balle
+        /**
+         *
+         * Fonction qui permet de savoir lorsque la balle bleu est cliqué par le joueur
+         *
+         */
         balle.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
+            /**
+             *
+             * Fonction qui va effectuer les taches tels qu'ajouter un au score et de faire jouer un son
+             *
+             */
             public void handle(MouseEvent mouseEvent)
             {
                 mediaPlayerDing.stop();
@@ -80,9 +101,17 @@ public class Controller
             }
         });
 
+        /**
+         * Fonction qui permet de savoir lorsque la balle jaune est cliqué par le joueur
+         */
         balle2.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             @Override
+            /**
+             *
+             * Fonction qui va effectuer les taches tels qu'ajouter un au score et de faire jouer un son
+             *
+             */
             public void handle(MouseEvent mouseEvent)
             {
                 mediaPlayerDing.stop();
@@ -102,6 +131,11 @@ public class Controller
             }
         });
     }
+
+    /**
+     * Permet de faire bouger la balle bleu dans le Pane
+     * @param root Pane
+     */
     public static void timeline(Pane root)
     {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>()
@@ -137,6 +171,10 @@ public class Controller
         timeline.play();
     }
 
+    /**
+     * Permet de faire bouger la balle jaune dans le Pane
+     * @param root Pane
+     */
     public static void timeline2(Pane root)
     {
         Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>()
@@ -176,6 +214,11 @@ public class Controller
 
     }
 
+    /**
+     *
+     * Fonction qui ajuste la grandeur des images (gif) et les place dans le pane
+     *
+     */
     static public void setupImages()
     {
         fireView.setVisible(false);
